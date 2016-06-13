@@ -134,6 +134,10 @@ gulp.task('cleanVendor:css', function() {
   }).pipe(clean());
 });
 
+gulp.task('css', ['cleanCSS'], function() {
+  return gulp.src(paths.src.css).pipe(gulp.dest(destBase + "css/"));
+});
+
 gulp.task('inject:author', function() {
   var _sources, _target;
   _target = gulp.src(injectTarget);
@@ -173,10 +177,11 @@ gulp.task('demon', function() {
 
 gulp.task('watch', function() {
   gulp.watch(paths.src.js, ['js']);
+  gulp.watch(paths.src.css, ['css']);
   return gulp.watch(destBase + "**/*.*", ['inject']);
 });
 
 gulp.task('default', function() {
   port = args.port;
-  return sequence('js', 'cleanVendor:js', 'cleanVendor:css', 'inject', 'watch');
+  return sequence('js', 'css', 'cleanVendor:js', 'cleanVendor:css', 'inject', 'watch');
 });

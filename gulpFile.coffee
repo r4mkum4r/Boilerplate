@@ -13,10 +13,10 @@ spawn     = 	require('child_process').spawn
 exec      =   require('child_process').exec
 fs        =   require 'fs'
 path      =   require 'path'
-coffee    =   require 'gulp-coffee'
-less      =   require 'gulp-less'
-sass      =   require 'gulp-sass'
-stylus    =   require 'gulp-stylus'
+# coffee    =   require 'gulp-coffee'
+# less      =   require 'gulp-less'
+# sass      =   require 'gulp-sass'
+# stylus    =   require 'gulp-stylus'
 clean     =   require 'gulp-clean'
 concat    =   require 'gulp-concat'
 ngFileSort =  require 'gulp-angular-filesort'
@@ -98,31 +98,31 @@ gulp.task 'cleanVendor:css', ->
   gulp.src paths.vendors.css, {read: false}
     .pipe(clean())
 
-gulp.task 'coffee', ['cleanJS'],->
-	gulp.src paths.src.coffee
-		.pipe(coffee({bare:true}))
-		.pipe(gulp.dest("#{destBase}js/"))
+# gulp.task 'coffee', ['cleanJS'],->
+# 	gulp.src paths.src.coffee
+# 		.pipe(coffee({bare:true}))
+# 		.pipe(gulp.dest("#{destBase}js/"))
 
 gulp.task 'css', ['cleanCSS'], ->
 	gulp.src paths.src.css
 		.pipe gulp.dest("#{destBase}css/")
 
-gulp.task 'stylus', ['cleanCSS'], ->
-	gulp.src paths.src.stylus
-		.pipe(stylus({use: nib()}))
-		.pipe(gulp.dest("#{destBase}css/"))
+# gulp.task 'stylus', ['cleanCSS'], ->
+# 	gulp.src paths.src.stylus
+# 		.pipe(stylus({use: nib()}))
+# 		.pipe(gulp.dest("#{destBase}css/"))
 
-gulp.task 'less', ['cleanCSS'], ->
-	gulp.src paths.src.less
-		.pipe(less({
-			paths : [path.join __dirname, 'src/css/']
-		}))
-		.pipe(gulp.dest("#{destBase}css/"))
+# gulp.task 'less', ['cleanCSS'], ->
+# 	gulp.src paths.src.less
+# 		.pipe(less({
+# 			paths : [path.join __dirname, 'src/css/']
+# 		}))
+# 		.pipe(gulp.dest("#{destBase}css/"))
 
-gulp.task 'sass', ['cleanCSS'], ->
-	gulp.src paths.src.sass
-		.pipe(sass())
-		.pipe(gulp.dest("#{destBase}css/"))
+# gulp.task 'sass', ['cleanCSS'], ->
+# 	gulp.src paths.src.sass
+# 		.pipe(sass())
+# 		.pipe(gulp.dest("#{destBase}css/"))
 
 gulp.task 'inject:author', ->
   _target  = gulp.src injectTarget
@@ -162,15 +162,18 @@ gulp.task 'demon', ->
 
 gulp.task 'watch', ->
 	gulp.watch paths.src.js, ['js']
-	gulp.watch paths.src.coffee, ['coffee']
+	# gulp.watch paths.src.coffee, ['coffee']
 	gulp.watch paths.src.css, ['css']
-	gulp.watch paths.src.less, ['less']
-	gulp.watch paths.src.stylus, ['stylus']
-	gulp.watch paths.src.sass, ['sass']
+	# gulp.watch paths.src.less, ['less']
+	# gulp.watch paths.src.stylus, ['stylus']
+	# gulp.watch paths.src.sass, ['sass']
 
 	gulp.watch "#{destBase}**/*.*", ['inject']
 
 
 gulp.task 'default', ->
 	port  = args.port
-	sequence 'coffee', 'stylus', 'js', 'css', 'cleanVendor:js', 'cleanVendor:css', 'inject', 'watch'
+	sequence 'js', 'css', 'cleanVendor:js', 'cleanVendor:css', 'inject', 'watch'
+
+
+  
